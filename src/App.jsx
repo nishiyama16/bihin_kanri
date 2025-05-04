@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ItemPage from './pages/item'; // そのままでOK（変更不要）
-import ItemListPage from './pages/ItemListPage'; // ← これを追加
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ItemPage from "./pages/item";
+import ItemListPage from "./pages/ItemListPage";
 
 function App() {
   return (
