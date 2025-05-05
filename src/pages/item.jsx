@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { supabase } from '../lib/supabaseClient';
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import { supabase } from '../lib/supabaseClient'
 
 export default function ItemPage() {
-  const [searchParams] = useSearchParams();
-  const [item, setItem] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [searchParams] = useSearchParams()
+  const id = searchParams.get('id')
 
-  const id = searchParams.get('id');
+  const [item, setItem] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchItem = async () => {
@@ -25,23 +25,22 @@ export default function ItemPage() {
           )
         `)
         .eq('id', id)
-        .single();
+        .single()
 
       if (error) {
-        console.error('取得エラー:', error);
+        console.error('取得エラー:', error)
       } else {
-        console.log('取得データ:', data);
-        setItem(data);
+        setItem(data)
       }
 
-      setLoading(false);
-    };
+      setLoading(false)
+    }
 
-    fetchItem();
-  }, [id]);
+    fetchItem()
+  }, [id])
 
-  if (loading) return <p>読み込み中...</p>;
-  if (!item) return <p>データが見つかりません</p>;
+  if (loading) return <p>読み込み中...</p>
+  if (!item) return <p>データが見つかりません</p>
 
   return (
     <div>
@@ -53,11 +52,7 @@ export default function ItemPage() {
       <p>
         マニュアルURL:{' '}
         {item.model2?.manual_url ? (
-          <a
-            href={item.model2.manual_url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={item.model2.manual_url} target="_blank" rel="noopener noreferrer">
             開く
           </a>
         ) : (
@@ -68,15 +63,11 @@ export default function ItemPage() {
       <p>
         QRコード:{' '}
         {item.qr_url ? (
-          <img
-            src={item.qr_url}
-            alt="QRコード"
-            style={{ width: '150px', height: '150px' }}
-          />
+          <img src={item.qr_url} alt="QRコード" style={{ width: '150px', height: '150px' }} />
         ) : (
           <span>（未登録）</span>
         )}
       </p>
     </div>
-  );
+  )
 }
